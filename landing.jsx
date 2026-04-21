@@ -3,7 +3,7 @@ const { useState, useEffect, useMemo } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "targetUrl": "https://chatgpt.com/g/g-69e0f568d5c08191a970cdd142ae123c-brief-framer-by-plusone",
-  "sheetsUrl": ""
+  "sheetsUrl": "https://script.google.com/macros/s/AKfycbxiK9tC4grnTI6WDBKbCiri1yIhXzvp6vZrk15MH-9pnANXJZT_HDGs4J9jegAEiMCbyg/exec"
 }/*EDITMODE-END*/;
 
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
