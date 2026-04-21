@@ -1,0 +1,6 @@
+ai-brief.zip
+debug/
+uploads/
+*.log
+.DS_Store
+Thumbs.db
