@@ -83,6 +83,7 @@ function App() {
       <Topbar/>
 
       <div className="center">
+        <div className="center-inner">
         <div className="hero">
           <div className="hero-eyebrow">
             <span>BETA</span>
@@ -159,6 +160,7 @@ function App() {
             )}
           </div>
         </form>
+        </div>{/* center-inner */}
       </div>
 
       <div className="footer">
