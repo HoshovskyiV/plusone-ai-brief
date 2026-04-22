@@ -544,7 +544,9 @@ to { max-width: 520px; } }
     letter-spacing: 0.06em;
   }
   .footer .links {
-    gap: 12px; flex-wrap: wrap; justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
     font-size: 10px;
     order: 1;
     margin-top: 4px;
