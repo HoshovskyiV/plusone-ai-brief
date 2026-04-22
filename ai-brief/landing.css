@@ -1,0 +1,495 @@
+/* =============================================================
+   AI Brief Framer — plusone.ua
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue:      #1A2BFF;
+  --blue-dk:   #0E1BC9;
+  --blue-lt:   #CFD4FE;
+  --ink:       #06070F;
+  --white:     #FFFFFF;
+  --grid:      rgba(255,255,255,0.14);
+  --muted:     rgba(255,255,255,0.65);
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease:      cubic-bezier(0.2, 0, 0, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0; padding: 0;
+  height: 100%;
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+button, input { font-family: inherit; }
+
+/* ═════════════════ STAGE ═════════════════ */
+.stage {
+  position: relative;
+  width: 100%; height: 100%;
+  background: var(--blue);
+  overflow-x: hidden;
+  display: flex; flex-direction: column;
+}
+
+.stage::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═════════════════ TOPBAR ═════════════════ */
+.topbar {
+  position: relative; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 40px;
+  font-size: 13px;
+  flex: 0 0 auto;
+}
+.topbar .brand {
+  display: inline-flex; align-items: center;
+  color: var(--white); text-decoration: none;
+}
+.topbar .brand .logo { height: 128px; width: auto; display: block; }
+
+/* ═════════════════ CENTER ═════════════════ */
+.center {
+  position: relative; z-index: 3;
+  flex: 1 1 auto;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding: 0 24px;
+  text-align: center;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.center-inner {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  margin: auto;
+  padding: 40px 0;
+}
+
+/* ═════════════════ HERO ═════════════════ */
+.hero {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto 6dvh;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-bottom: 32px;
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(255,255,255,0.78);
+  animation: fade-up 0.7s var(--ease) 0.05s both;
+}
+.hero-eyebrow .dot {
+  width: 4px; height: 4px;
+  background: var(--white);
+  display: inline-block;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: "";
+  width: 28px; height: 1px;
+  background: rgba(255,255,255,0.35);
+}
+
+.hero-title {
+  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 9vw, 112px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  text-wrap: balance;
+  animation: fade-up 0.8s var(--ease) 0.14s both;
+}
+
+.hero-rule {
+  width: 56px; height: 2px;
+  background: var(--white);
+  margin: 0 0 32px;
+  animation: grow-rule 0.6s var(--ease) 0.28s both;
+}
+
+.hero-lead {
+  margin: 0 auto 22px;
+  max-width: 680px;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: -0.005em;
+  color: var(--white);
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.34s both;
+}
+.hero-lead b { font-weight: 700; }
+
+.hero-body {
+  margin: 0 auto 20px;
+  max-width: 620px;
+  font-size: clamp(15px, 1.55vw, 18px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.44s both;
+}
+
+.hero-note {
+  margin: 0 auto;
+  max-width: 560px;
+  font-size: clamp(13px, 1.25vw, 15px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.68);
+  letter-spacing: 0.005em;
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.54s both;
+}
+
+.hl {
+  background: var(--white);
+  color: var(--blue);
+  padding: 0 8px;
+  font-weight: 600;
+}
+.u {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes grow-rule {
+  from { width: 0; opacity: 0; }
+  to   { width: 56px; opacity: 1; }
+}
+
+/* ═════════════════ FORM ═════════════════ */
+.form-wrap {
+  width: 100%;
+  max-width: 860px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+.form-wrap .row-full { grid-column: 1 / -1; }
+
+.field { display: grid; gap: 6px; text-align: left; }
+.field label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--white);
+}
+.field .wrap {
+  position: relative;
+  border: 1.5px solid var(--white);
+  background: transparent;
+  transition: background 180ms var(--ease);
+}
+.field .wrap:focus-within { background: rgba(255,255,255,0.08); }
+.field .wrap.done { background: var(--white); }
+.field input {
+  width: 100%;
+  background: transparent;
+  border: 0; outline: none;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 16px 36px 16px 14px;
+  letter-spacing: 0.01em;
+}
+.field .wrap.done input { color: var(--blue); }
+.field input::placeholder { color: rgba(255,255,255,0.75); font-weight: 400; }
+.field .wrap.done input::placeholder { color: rgba(26,43,255,0.35); }
+.field .ok {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font-size: 16px; font-weight: 700; color: var(--blue);
+  opacity: 0; transition: opacity 180ms var(--ease);
+}
+.field .wrap.done .ok { opacity: 1; }
+
+/* ─── Consent ─── */
+.consent {
+  display: inline-flex; gap: 8px; align-items: center;
+  padding: 4px 0;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+}
+.consent .box {
+  flex: 0 0 13px;
+  width: 13px; height: 13px;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  background: transparent;
+  position: relative;
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
+}
+.consent.on .box { background: var(--white); border-color: var(--white); }
+.consent.on .box::after {
+  content: ""; position: absolute;
+  left: 3px; top: 0; width: 5px; height: 9px;
+  border: solid var(--blue); border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.consent .txt {
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+/* ─── Submit ─── */
+.form-wrap .row-full:last-child {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.submit {
+  width: 100%;
+  max-width: 380px;
+  padding: 20px 28px;
+  border: 1.5px solid var(--white);
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: not-allowed;
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px;
+  opacity: 0.75;
+  transition: background 180ms var(--ease), color 180ms var(--ease),
+              opacity 200ms var(--ease), transform 120ms var(--ease);
+}
+.submit .arr {
+  font-size: 18px; font-weight: 600;
+  transition: transform 180ms var(--ease);
+}
+.submit.ready {
+  background: var(--white);
+  color: var(--blue);
+  opacity: 1;
+  cursor: pointer;
+  animation: wake 0.35s var(--ease);
+}
+.submit.ready:hover { background: var(--blue-lt); }
+.submit.ready:hover .arr { transform: translateX(4px); }
+.submit.ready:active { transform: translateY(1px); }
+
+@keyframes wake {
+  0%   { transform: translateY(3px); opacity: 0.5; }
+  100% { transform: translateY(0);   opacity: 1; }
+}
+
+/* ═════════════════ FOOTER ═════════════════ */
+.footer {
+  position: relative; z-index: 5;
+  background: var(--ink);
+  color: var(--white);
+  padding: 14px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; letter-spacing: 0.08em;
+  flex: 0 0 auto;
+}
+.footer .links { display: flex; gap: 20px; color: rgba(255,255,255,0.7); }
+.footer .links a { color: inherit; text-decoration: none; }
+.footer .links a:hover { color: var(--white); }
+
+/* ═════════════════ TABLET / SMALL DESKTOP ═════════════════ */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .topbar .brand .logo { height: 80px; }
+  .topbar { padding: 14px 28px; }
+}
+
+@media (max-height: 720px) and (min-width: 761px) {
+  .topbar .brand .logo { height: 72px; }
+  .topbar { padding: 12px 24px; }
+  .hero { margin-bottom: 20px; }
+  .hero-rule { margin-bottom: 16px; }
+  .hero-lead { margin-bottom: 10px; }
+  .hero-body { margin-bottom: 8px; }
+}
+
+/* ═════════════════ MOBILE ═════════════════ */
+@media (max-width: 760px) {
+  html, body, #root {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .stage {
+    height: auto;
+    min-height: 100dvh;
+  }
+  .stage::before { background-size: 32px 32px; opacity: 0.55; }
+
+  /* Topbar — logo менший, щоб не займав пів екрану */
+  .topbar {
+    padding: 16px 20px;
+  }
+  .topbar .brand .logo { height: 64px; }
+
+  /* Center — вирівнювання по лівому краю, менший відступ */
+  .center {
+    padding: 0 22px;
+    align-items: stretch;
+    text-align: left;
+    overflow-y: visible;
+  }
+
+  .center-inner {
+    margin: 0;
+    padding: 28px 0 40px;
+    align-items: flex-start;
+  }
+
+  /* Hero — ліве вирівнювання, компактніша ієрархія */
+  .hero {
+    align-items: flex-start;
+    text-align: left;
+    margin: 0 0 32px;
+  }
+  .hero-eyebrow {
+    margin-bottom: 20px;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    gap: 10px;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after { width: 18px; }
+
+  .hero-title {
+    font-size: clamp(38px, 12vw, 56px);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+
+  .hero-rule {
+    margin-bottom: 22px;
+    height: 1.5px;
+    width: 40px;
+  }
+
+  .hero-lead {
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0 0 16px;
+    max-width: 100%;
+  }
+
+  .hero-body {
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 14px;
+    max-width: 100%;
+  }
+
+  .hero-note {
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .hl { padding: 0 5px; }
+  .u { text-decoration-thickness: 1.5px; }
+
+  /* Form — одна колонка */
+  .form-wrap {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .field label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+  .field input {
+    font-size: 16px; /* запобігає zoom на iOS */
+    padding: 14px 40px 14px 14px;
+  }
+  .field .ok { font-size: 18px; right: 12px; }
+
+  /* Consent — залишається дрібним */
+  .consent { padding: 2px 0; gap: 8px; }
+  .consent .box { width: 13px; height: 13px; flex: 0 0 13px; }
+  .consent .txt { font-size: 11px; }
+
+  /* Submit — повна ширина, зручно для пальця */
+  .form-wrap .row-full:last-child { margin-top: 12px; }
+  .submit {
+    max-width: none;
+    padding: 18px 16px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    min-height: 56px;
+  }
+
+  /* Footer — вертикальний стек */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 20px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .footer .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .footer .links a {
+    display: block;
+    padding: 2px 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar { padding: 14px 16px; }
+  .topbar .brand .logo { height: 52px; }
+  .center { padding: 20px 16px 28px; }
+  .pitch { font-size: 17px; margin-bottom: 22px; }
+  .form-wrap { gap: 10px; }
+  .submit { padding: 16px 14px; min-height: 52px; }
+  .footer { padding: 16px; }
+}

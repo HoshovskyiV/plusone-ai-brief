@@ -8,7 +8,7 @@
 
 - 3 статичні файли: `index.html`, `landing.css`, `landing.jsx`.
 - Чистий HTML + CSS + JSX (React через CDN — збірка не потрібна).
-- Форма збирає ім'я/компанію/email і шле їх у Google Sheet через Google Apps Script (URL вебхука вже зашитий у `landing.jsx`).
+- Форма збирає email + згоду на обробку даних і шле їх у Google Sheet через Google Apps Script (URL вебхука вже зашитий у `landing.jsx`).
 - Після submit — редірект на ChatGPT GPT.
 
 ## Як розгорнути
