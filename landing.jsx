@@ -1,5 +1,5 @@
 /* AI Brief Framer — centered */
-const { useState, useEffect, useMemo } = React;
+const { useState, useEffect } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "targetUrl": "https://chatgpt.com/g/g-69e0f568d5c08191a970cdd142ae123c-brief-framer-by-plusone",
@@ -7,7 +7,6 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-const hasLen = (v, n = 2) => v.trim().length >= n;
 
 function Topbar() {
   return (
@@ -19,23 +18,11 @@ function Topbar() {
   );
 }
 
-function Field({ label, value, onChange, valid, placeholder, type='text', autoComplete }) {
-  return (
-    <div className="field">
-      <label>{label}</label>
-      <div className={`wrap${valid ? ' done' : ''}`}>
-        <input type={type} value={value} onChange={(e)=>onChange(e.target.value)} placeholder={placeholder} autoComplete={autoComplete} spellCheck={false}/>
-      </div>
-    </div>
-  );
-}
-
-function Unlock() { return null; }
-
 function App() {
   const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
   const [tweaksVisible, setTweaksVisible] = useState(false);
-  const [data, setData] = useState({ name:'', company:'', email:'' });
+  const [showForm, setShowForm] = useState(false);
+  const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -56,15 +43,17 @@ function App() {
     window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[k]:v}}, '*');
   };
 
-  const vName = hasLen(data.name);
-  const vCompany = hasLen(data.company);
-  const vEmail = isEmail(data.email);
-  const valid = vName && vCompany && vEmail && consent;
+  const vEmail = isEmail(email);
+  const valid = vEmail && consent;
 
   const onSubmit = async (e) => {
     e && e.preventDefault();
     if (!valid || submitted) return;
     setSubmitted(true);
+
+    if (tweaks.targetUrl) {
+      window.open(tweaks.targetUrl, '_blank');
+    }
 
     if (tweaks.sheetsUrl) {
       try {
@@ -76,9 +65,7 @@ function App() {
           keepalive: true,
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
-            name: data.name.trim(),
-            company: data.company.trim(),
-            email: data.email.trim(),
+            email: email.trim(),
             consent: consent,
             userAgent: navigator.userAgent,
             referrer: document.referrer || '',
@@ -87,13 +74,8 @@ function App() {
           signal: ctrl.signal
         });
         clearTimeout(t);
-      } catch(err) {
-        // Expected on slow cold-start: 5s timeout or CORS after 302 follow.
-        // Either way doPost already ran on server — data is in the sheet.
-      }
+      } catch(err) {}
     }
-
-    if (tweaks.targetUrl) { try { window.location.href = tweaks.targetUrl; } catch(err){} }
   };
 
   return (
@@ -102,34 +84,63 @@ function App() {
 
       <div className="center">
         <p className="pitch">
-          Заповни форму й отримай доступ до <span className="hl">АІ-інструменту</span>,
-          що допоможе визначити <span className="u">реальну комунікаційну задачу</span> та сформувати чіткий бриф.
+          Brief Framer – AI-інструмент, створений на базі експертизи агенції plusone social impact у стратегічних комунікаціях.
+          <br/><br/>
+          Ми створили його, щоб допомогти вам визначити реальну комунікаційну задачу та сформувати сильний бриф.
+          <br/><br/>
+          Заповніть коротку форму, щоб отримати доступ до безкоштовної бета-версії на основі кастомізованого GPT.
         </p>
 
         <form className="form-wrap" onSubmit={onSubmit} noValidate>
-          <Field label="Ім'я" value={data.name} onChange={(v)=>setData({...data, name:v})} valid={vName} placeholder="ваше ім'я" autoComplete="given-name"/>
-          <Field label="Компанія" value={data.company} onChange={(v)=>setData({...data, company:v})} valid={vCompany} placeholder="назва компанії" autoComplete="organization"/>
-          <Field label="Email" type="email" value={data.email} onChange={(v)=>setData({...data, email:v})} valid={vEmail} placeholder="you@company.ua" autoComplete="email"/>
+          {showForm && (
+            <>
+              <div className="field row-full">
+                <label>Email</label>
+                <div className={`wrap${vEmail ? ' done' : ''}`}>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.ua"
+                    autoComplete="email"
+                    spellCheck={false}
+                    autoFocus
+                  />
+                </div>
+              </div>
+
+              <div className="row-full">
+                <div
+                  className={`consent${consent ? ' on' : ''}`}
+                  onClick={() => setConsent(!consent)}
+                  role="checkbox"
+                  aria-checked={consent}
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key===' '||e.key==='Enter'){ e.preventDefault(); setConsent(!consent); } }}
+                >
+                  <span className="box"/>
+                  <span className="txt">Дозволяю обробку моїх даних</span>
+                </div>
+              </div>
+            </>
+          )}
 
           <div className="row-full">
-            <div
-              className={`consent${consent ? ' on' : ''}`}
-              onClick={()=>setConsent(!consent)}
-              role="checkbox"
-              aria-checked={consent}
-              tabIndex={0}
-              onKeyDown={(e)=>{ if (e.key===' '||e.key==='Enter'){ e.preventDefault(); setConsent(!consent);} }}
-            >
-              <span className="box"/>
-              <span className="txt">Дозволяю обробку моїх даних відповідно до <u>політики конфіденційності</u>.</span>
-            </div>
-          </div>
-
-          <div className="row-full">
-            <button type="submit" className={`submit${valid && !submitted ? ' ready' : ''}`} disabled={!valid || submitted}>
-              <span>{submitted ? 'Відправляємо…' : 'AI Brief Framer'}</span>
-              {!submitted && <span className="arr">→</span>}
-            </button>
+            {!showForm ? (
+              <button type="button" className="submit ready" onClick={() => setShowForm(true)}>
+                <span>Отримати доступ</span>
+                <span className="arr">→</span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className={`submit${valid && !submitted ? ' ready' : ''}`}
+                disabled={!valid || submitted}
+              >
+                <span>{submitted ? 'Відкриваємо…' : 'Отримати доступ'}</span>
+                {!submitted && <span className="arr">→</span>}
+              </button>
+            )}
           </div>
         </form>
       </div>
