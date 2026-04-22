@@ -56,7 +56,8 @@ button, input { font-family: inherit; }
   font-size: 13px;
   flex: 0 0 auto;
 }
-.topbar .brand b { font-weight: 700; }
+.topbar .brand { display: inline-flex; align-items: center; color: var(--white); text-decoration: none; }
+.topbar .brand .logo { height: 32px; width: auto; display: block; }
 .topbar .nav {
   display: flex; gap: 28px;
   font-size: 12px; letter-spacing: 0.12em;
@@ -473,7 +474,7 @@ to { max-width: 520px; } }
     padding: 18px 22px 10px;
     font-size: 12px;
   }
-  .topbar .brand { font-size: 13px; letter-spacing: 0.02em; }
+  .topbar .brand .logo { height: 26px; }
 
   .center {
     flex: 1 1 auto;

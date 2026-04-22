@@ -12,7 +12,9 @@ const hasLen = (v, n = 2) => v.trim().length >= n;
 function Topbar() {
   return (
     <div className="topbar">
-      <a className="brand" href="https://plusone.ua/" target="_blank" rel="noopener" style={{color:'var(--white)', textDecoration:'none'}}><b>plusone</b> social impact</a>
+      <a className="brand" href="https://plusone.ua/" target="_blank" rel="noopener" aria-label="plusone social impact">
+        <img className="logo" src="plusone-logo-safezone-white.svg" alt="plusone social impact"/>
+      </a>
     </div>
   );
 }
