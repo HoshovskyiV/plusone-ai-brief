@@ -96,13 +96,6 @@ function App() {
 
   return (
     <div className="stage">
-      <span className="plus lg" style={{top:'22%', left:'10%'}}/>
-      <span className="plus" style={{top:'18%', right:'14%'}}/>
-      <span className="plus sm thin" style={{top:'62%', left:'20%'}}/>
-      <span className="plus sm" style={{bottom:'16%', right:'10%'}}/>
-      <span className="plus thin" style={{top:'48%', right:'6%'}}/>
-      <span className="plus sm thin" style={{top:'10%', left:'36%'}}/>
-
       <Topbar/>
 
       <div className="center">

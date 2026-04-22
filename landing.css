@@ -68,22 +68,6 @@ button, input { font-family: inherit; }
 .topbar .lang a { color: var(--white); text-decoration: none; cursor: pointer; opacity: 0.55; }
 .topbar .lang a.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 
-/* ═════════════════ PLUS CROSSES ═════════════════ */
-.plus {
-  position: absolute;
-  width: 56px; height: 56px;
-  z-index: 1;
-  pointer-events: none;
-}
-.plus::before, .plus::after {
-  content: ""; position: absolute; background: var(--white);
-}
-.plus::before { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
-.plus::after  { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }
-.plus.sm { width: 36px; height: 36px; }
-.plus.lg { width: 84px; height: 84px; }
-.plus.thin::before, .plus.thin::after { background: rgba(255,255,255,0.45); }
-
 /* ═════════════════ CENTER ═════════════════ */
 .center {
   position: relative; z-index: 3;
@@ -569,9 +553,6 @@ to { max-width: 520px; } }
     gap: 14px; flex-wrap: wrap; justify-content: center;
     font-size: 10.5px;
   }
-
-  /* Hide all decorative crosses on mobile — they clutter the layout */
-  .stage > .plus { display: none !important; }
 
   /* Unlock overlay */
   .unlock { padding: 24px 16px; }
