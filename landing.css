@@ -30,9 +30,9 @@ button, input { font-family: inherit; }
 /* ═════════════════ STAGE ═════════════════ */
 .stage {
   position: relative;
-  width: 100%; height: 100vh;
+  width: 100%; min-height: 100vh;
   background: var(--blue);
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex; flex-direction: column;
 }
 
@@ -160,41 +160,34 @@ button, input { font-family: inherit; }
 
 /* Consent */
 .consent {
-  display: flex; gap: 14px; align-items: center;
-  padding: 16px 18px;
-  border: 1.5px solid var(--white);
-  background: transparent;
+  display: inline-flex; gap: 8px; align-items: center;
+  padding: 4px 0;
   cursor: pointer;
   user-select: none;
   text-align: left;
-  transition: background 180ms var(--ease);
 }
-.consent:hover { background: rgba(255,255,255,0.06); }
-.consent.on { background: rgba(255,255,255,0.08); }
 .consent .box {
-  flex: 0 0 20px;
-  width: 20px; height: 20px;
-  border: 1.5px solid var(--white);
+  flex: 0 0 13px;
+  width: 13px; height: 13px;
+  border: 1.5px solid rgba(255,255,255,0.55);
   background: transparent;
   position: relative;
-  margin-top: 1px;
-  transition: background 180ms var(--ease);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
 }
-.consent.on .box { background: var(--white); }
+.consent.on .box { background: var(--white); border-color: var(--white); }
 .consent.on .box::after {
   content: ""; position: absolute;
-  left: 5px; top: 1px; width: 7px; height: 12px;
+  left: 3px; top: 0px; width: 5px; height: 9px;
   border: solid var(--blue); border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 .consent .txt {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--white);
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.65);
   letter-spacing: 0.01em;
-  font-weight: 500;
+  font-weight: 400;
 }
-.consent .txt u { text-decoration-thickness: 1px; text-underline-offset: 2px; }
 
 /* Submit */
 .submit {
