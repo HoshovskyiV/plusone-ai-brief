@@ -74,26 +74,111 @@ button, input { font-family: inherit; }
   min-height: 0;
 }
 
-/* ═════════════════ PITCH ═════════════════ */
-.pitch {
-  margin: 0 auto 8dvh;
-  max-width: 1040px;
+/* ═════════════════ HERO ═════════════════ */
+.hero {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto 6dvh;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-bottom: 32px;
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
   font-weight: 600;
-  font-size: clamp(24px, 3.4vw, 48px);
-  line-height: 1.28;
-  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.78);
+  animation: fade-up 0.7s var(--ease) 0.05s both;
+}
+.hero-eyebrow .dot {
+  width: 4px; height: 4px;
+  background: var(--white);
+  display: inline-block;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: "";
+  width: 28px; height: 1px;
+  background: rgba(255,255,255,0.35);
+}
+
+.hero-title {
+  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 9vw, 112px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
   color: var(--white);
   text-wrap: balance;
+  animation: fade-up 0.8s var(--ease) 0.14s both;
 }
-.pitch .hl {
+
+.hero-rule {
+  width: 56px; height: 2px;
+  background: var(--white);
+  margin: 0 0 32px;
+  animation: grow-rule 0.6s var(--ease) 0.28s both;
+}
+
+.hero-lead {
+  margin: 0 auto 22px;
+  max-width: 680px;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: -0.005em;
+  color: var(--white);
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.34s both;
+}
+.hero-lead b { font-weight: 700; }
+
+.hero-body {
+  margin: 0 auto 20px;
+  max-width: 620px;
+  font-size: clamp(15px, 1.55vw, 18px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.44s both;
+}
+
+.hero-note {
+  margin: 0 auto;
+  max-width: 560px;
+  font-size: clamp(13px, 1.25vw, 15px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.68);
+  letter-spacing: 0.005em;
+  text-wrap: pretty;
+  animation: fade-up 0.7s var(--ease) 0.54s both;
+}
+
+.hl {
   background: var(--white);
   color: var(--blue);
   padding: 0 8px;
+  font-weight: 600;
 }
-.pitch .u {
+.u {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes grow-rule {
+  from { width: 0; opacity: 0; }
+  to   { width: 56px; opacity: 1; }
 }
 
 /* ═════════════════ FORM ═════════════════ */
@@ -174,20 +259,26 @@ button, input { font-family: inherit; }
 }
 
 /* ─── Submit ─── */
+.form-wrap .row-full:last-child {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
 .submit {
   width: 100%;
-  padding: 22px 20px;
+  max-width: 380px;
+  padding: 20px 28px;
   border: 1.5px solid var(--white);
   background: rgba(255,255,255,0.08);
   color: var(--white);
   font-family: inherit;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.16em;
+  font-size: 14px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: not-allowed;
   display: flex; align-items: center; justify-content: center;
-  gap: 16px;
+  gap: 14px;
   opacity: 0.75;
   transition: background 180ms var(--ease), color 180ms var(--ease),
               opacity 200ms var(--ease), transform 120ms var(--ease);
@@ -248,24 +339,64 @@ button, input { font-family: inherit; }
 
   /* Center — вирівнювання по лівому краю, менший відступ */
   .center {
-    padding: 24px 20px 32px;
+    padding: 32px 22px 40px;
     justify-content: flex-start;
     align-items: stretch;
     text-align: left;
   }
 
-  /* Pitch — менший шрифт, менший нижній відступ */
-  .pitch {
-    font-size: clamp(18px, 5vw, 24px);
-    line-height: 1.45;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0 0 28px;
-    max-width: 100%;
-    text-wrap: pretty;
+  /* Hero — ліве вирівнювання, компактніша ієрархія */
+  .hero {
+    align-items: flex-start;
+    text-align: left;
+    margin: 0 0 32px;
   }
-  .pitch .hl { padding: 0 5px; }
-  .pitch .u { text-decoration-thickness: 1.5px; }
+  .hero-eyebrow {
+    margin-bottom: 20px;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    gap: 10px;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after { width: 18px; }
+
+  .hero-title {
+    font-size: clamp(38px, 12vw, 56px);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+
+  .hero-rule {
+    margin-bottom: 22px;
+    height: 1.5px;
+    width: 40px;
+  }
+
+  .hero-lead {
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 500;
+    margin: 0 0 16px;
+    max-width: 100%;
+  }
+
+  .hero-body {
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 14px;
+    max-width: 100%;
+  }
+
+  .hero-note {
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .hl { padding: 0 5px; }
+  .u { text-decoration-thickness: 1.5px; }
 
   /* Form — одна колонка */
   .form-wrap {
@@ -289,13 +420,14 @@ button, input { font-family: inherit; }
   .consent .box { width: 13px; height: 13px; flex: 0 0 13px; }
   .consent .txt { font-size: 11px; }
 
-  /* Submit */
+  /* Submit — повна ширина, зручно для пальця */
+  .form-wrap .row-full:last-child { margin-top: 12px; }
   .submit {
+    max-width: none;
     padding: 18px 16px;
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    font-size: 13px;
+    letter-spacing: 0.16em;
     min-height: 56px;
-    margin-top: 4px;
   }
 
   /* Footer — вертикальний стек */

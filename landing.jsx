@@ -83,13 +83,29 @@ function App() {
       <Topbar/>
 
       <div className="center">
-        <p className="pitch">
-          Brief Framer – <span className="hl">AI-інструмент</span>, створений на базі експертизи агенції plusone social impact у стратегічних комунікаціях.
-          <br/><br/>
-          Він допоможе вам визначити <span className="u">реальну комунікаційну задачу</span> та сформувати сильний бриф.
-          <br/><br/>
-          Заповніть коротку форму, щоб отримати доступ до <span className="hl">безкоштовної бета-версії</span> на основі кастомізованого GPT.
-        </p>
+        <div className="hero">
+          <div className="hero-eyebrow">
+            <span>BETA</span>
+            <span className="dot"/>
+            <span>AI TOOL</span>
+          </div>
+
+          <h1 className="hero-title">Brief Framer</h1>
+
+          <div className="hero-rule"/>
+
+          <p className="hero-lead">
+            <span className="hl">AI-інструмент</span>, створений на базі експертизи агенції <b>plusone social impact</b> у стратегічних комунікаціях.
+          </p>
+
+          <p className="hero-body">
+            Він допоможе вам визначити <span className="u">реальну комунікаційну задачу</span> та сформувати сильний бриф.
+          </p>
+
+          <p className="hero-note">
+            Заповніть коротку форму, щоб отримати доступ до <span className="hl">безкоштовної бета-версії</span> на основі кастомізованого GPT.
+          </p>
+        </div>
 
         <form className="form-wrap" onSubmit={onSubmit} noValidate>
           {showForm && (
